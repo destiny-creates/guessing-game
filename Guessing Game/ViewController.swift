@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 randomNumber = Int(arc4random_uniform(101))
-        gameStatusLabel.text = "\(randomNumber)"
+        gameStatusLabel.text = "good luck!"
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -28,11 +28,24 @@ randomNumber = Int(arc4random_uniform(101))
     }
 
     @IBAction func submitButtonTapped(_ sender: Any) {
-        
-        gameStatusLabel.text = ("you tapped the submit button")
-}
+        guard let userGuess = Int(guessingField.text!) else {
+            return
+        }
+        if userGuess < 0 || userGuess > 100 {
+            return
+        }
+        if userGuess == randomNumber {
+            gameStatusLabel.text = "correct! you won!"
+        } else if userGuess < randomNumber {
+            gameStatusLabel.text = "your guess was to low"
+        }
+        else {
+            gameStatusLabel.text = "your guess was to high"
+        }
+    
+    }
     @IBAction func ResetButton(_ sender: Any) {
-        gameStatusLabel.text = "you tapped reset button"
+        gameStatusLabel.text = ("you tapped reset button")
     }
     
 
